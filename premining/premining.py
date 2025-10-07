@@ -38,7 +38,7 @@ def remove_tags_from_file(input_path, output_path):
 if __name__ == '__main__':
     # 入力ファイル名と出力ファイル名を指定
     input_file = 'dogura_magura.txt'
-    output_file = 'cleaned_dogura.txt'
+    output_file = 'texts/cleaned_dogura.txt'
 
     # 関数の実行
     remove_tags_from_file(input_file, output_file)
