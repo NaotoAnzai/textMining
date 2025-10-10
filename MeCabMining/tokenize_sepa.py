@@ -1,14 +1,6 @@
 import MeCab
 from pathlib import Path
 
-# 入出力ファイルのパスを設定
-input_path = Path('texts/cleaned_dogura.txt')
-output_path_meishi = Path('texts/tokenized_meishi_dogura.txt')
-output_path_doushi = Path('texts/tokenized_doushi_dogura.txt')
-output_path_keiyoushi = Path('texts/tokenized_keiyoushi_dogura.txt')
-output_path_hukushi = Path('texts/tokenized_hukushi_dogura.txt')
-output_path_others = Path('texts/tokenized_others_dogura.txt')
-
 def tokenize(text,hinshi):
     mecab = MeCab.Tagger()
     nodes = mecab.parseToNode(text)
@@ -42,6 +34,17 @@ def tokenize_other(text):
                 tokens.append(nodes.surface)
         nodes = nodes.next
     return tokens
+
+
+# 入出力ファイルのパスを設定
+name = input("book name -> ")
+input_path = Path(f'texts/cleaned_{name}.txt')
+output_path_meishi = Path(f'texts/tokenized_meishi_{name}.txt')
+output_path_doushi = Path(f'texts/tokenized_doushi_{name}.txt')
+output_path_keiyoushi = Path(f'texts/tokenized_keiyoushi_{name}.txt')
+output_path_hukushi = Path(f'texts/tokenized_hukushi_{name}.txt')
+output_path_others = Path(f'texts/tokenized_others_{name}.txt')
+
 
 #トークンに分割
 text = input_path.read_text(encoding='utf-8')

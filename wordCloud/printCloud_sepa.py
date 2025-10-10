@@ -2,26 +2,28 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+# 入力の作品名を指定
+name = input("book name -> ")
 # テキストファイルを読み込む
 # 名詞のみ抽出したファイルを使用
-input_path = Path('texts/tokenized_meishi_dogura.txt')
+input_path = Path(f'texts/tokenized_meishi_{name}.txt')
 text_meishi = input_path.read_text(encoding='utf-8')
 # 動詞のみ抽出したファイルを使用
-input_path = Path('texts/tokenized_doushi_dogura.txt')
+input_path = Path(f'texts/tokenized_doushi_{name}.txt')
 text_doushi = input_path.read_text(encoding='utf-8')
 # 形容詞のみ抽出したファイルを使用
-input_path = Path('texts/tokenized_keiyoushi_dogura.txt')
+input_path = Path(f'texts/tokenized_keiyoushi_{name}.txt')
 text_keiyoushi = input_path.read_text(encoding='utf-8')
 # 副詞のみ抽出したファイルを使用
-input_path = Path('texts/tokenized_hukushi_dogura.txt')
+input_path = Path(f'texts/tokenized_hukushi_{name}.txt')
 text_hukushi = input_path.read_text(encoding='utf-8')
 # 記号のみ抽出したファイルを使用
-input_path = Path('texts/tokenized_others_dogura.txt')
+input_path = Path(f'texts/tokenized_others_{name}.txt')
 text_others = input_path.read_text(encoding='utf-8')
 
 # フォントファイルのパスを絶対パスで指定
 current_dir = Path(__file__).parent
-font_path = current_dir / 'onryou.TTF'
+font_path = current_dir / 'NotoSansJP-VariableFont_wght.ttf'
 
 # 出力フォルダのパスを設定
 output_dir = current_dir / 'output'
@@ -48,8 +50,8 @@ def plot_and_save(wordcloud, filename):
 	plt.savefig(str(output_path), bbox_inches='tight', pad_inches=0)
 	
 # 各品詞のワードクラウドを生成・保存
-plot_and_save(generate_cloud(text_meishi), 'wordcloud_meishi.png')
-plot_and_save(generate_cloud(text_doushi), 'wordcloud_doushi.png')
-plot_and_save(generate_cloud(text_keiyoushi), 'wordcloud_keiyoushi.png')
-plot_and_save(generate_cloud(text_hukushi), 'wordcloud_hukushi.png')
-plot_and_save(generate_cloud(text_others), 'wordcloud_others.png')
+plot_and_save(generate_cloud(text_meishi), f'wordcloud_{name}_meishi.png')
+plot_and_save(generate_cloud(text_doushi), f'wordcloud_{name}_doushi.png')
+plot_and_save(generate_cloud(text_keiyoushi), f'wordcloud_{name}_keiyoushi.png')
+plot_and_save(generate_cloud(text_hukushi), f'wordcloud_{name}_hukushi.png')
+plot_and_save(generate_cloud(text_others), f'wordcloud_{name}_others.png')

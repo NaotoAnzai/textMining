@@ -33,12 +33,41 @@ def remove_tags_from_file(input_path, output_path):
         print(f"エラー: 入力ファイル '{input_path}' が見つかりません。")
     except Exception as e:
         print(f"エラーが発生しました: {e}")
+# ...existing code...
+
+def merge_text_files(input_files, output_file):
+    """
+    複数のテキストファイルを半角スペースで区切って1つのファイルに統合する
+
+    :param input_files: 入力ファイルのパスのリスト
+    :param output_file: 出力ファイルのパス
+    """
+    try:
+        with open(output_file, 'w', encoding='utf-8') as outfile:
+            for i, file_path in enumerate(input_files):
+                with open(file_path, 'r', encoding='utf-8') as infile:
+                    content = infile.read().strip()  # 前後の空白を削除
+                    outfile.write(content)
+                    # 最後のファイル以外の後にスペースを追加
+                    if i < len(input_files) - 1:
+                        outfile.write(' ')
+        
+        print(f"ファイルの統合が完了しました。結果は '{output_file}' に保存されました。")
+
+    except FileNotFoundError as e:
+        print(f"エラー: ファイルが見つかりません: {e}")
+    except Exception as e:
+        print(f"エラーが発生しました: {e}")
 
 # --- ここから実行部分 ---
 if __name__ == '__main__':
-    # 入力ファイル名と出力ファイル名を指定
-    input_file = 'dogura_magura.txt'
-    output_file = 'texts/cleaned_dogura.txt'
-
-    # 関数の実行
-    remove_tags_from_file(input_file, output_file)
+    # 入力ファイルの数を指定
+    num_files = int(input("input file num -> "))
+    input_files = []
+    for i in range(num_files):
+        file_name = input(f"input file {i+1} -> ")
+        output_file = f"texts/output{i+1}.txt"
+        remove_tags_from_file("texts/" + file_name, output_file)
+        input_files.append(output_file)
+    output_file = "texts/" + input("output flie -> ")
+    merge_text_files(input_files, output_file)
